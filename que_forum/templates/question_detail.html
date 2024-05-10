@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ question.title }}</title>
+</head>
+<body>
+    <h1>{{ question.title }}</h1>
+    <p>{{ question.detail }}</p>
+
+    <h2>Post an Answer</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Answer</button>
+    </form>
+
+    <p><a href="{% url 'question_list' %}">Back to Questions</a></p>
+</body>
+</html>

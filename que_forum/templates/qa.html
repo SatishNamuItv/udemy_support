@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A - Python for Beginners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .question {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .question-header {
+            font-weight: bold;
+        }
+        .question-body {
+            margin-top: 5px;
+            padding: 5px;
+        }
+        .answer {
+            margin-top: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Q&A - Python for Beginners: Learn Python with Hands-on Projects</h1>
+        <button onclick="window.location='login.html';">Student Login</button>
+    </div>
+    <div>
+        <input type="text" placeholder="Search by keyword" style="width: 100%; margin-top: 20px;">
+    </div>
+
+    <!-- Loop through questions fetched from the API -->
+    {% for question in questions %}
+    <div class="question">
+        <div class="question-header">
+            {{ question.title }}
+        </div>
+        <div class="question-body">
+            {{ question.body|safe }}
+        </div>
+        <div class="answer">
+            Replies: {{ question.num_replies }} | Follows: {{ question.num_follows }} | Upvotes: {{ question.num_upvotes }}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Pagination Links -->
+    <div>
+        {% if previous %}
+            <a href="?page={{ previous }}">Previous</a>
+        {% endif %}
+        {% if next %}
+            <a href="?page={{ next }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>
