@@ -15,12 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from que_forum import views
+from authentication import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('que_forum.urls'))
-
-
-]
+    path('', user_views.login, name='login'),
+    path('home/', include('que_forum.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

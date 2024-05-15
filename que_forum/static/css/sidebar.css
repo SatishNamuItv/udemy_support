@@ -1,0 +1,32 @@
+/* sidebar.css */
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100vh; /* Make the sidebar span the full height */
+    position: fixed; /* Keep the sidebar fixed */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #ddd;
+}
