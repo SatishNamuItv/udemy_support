@@ -3,6 +3,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import AnswerForm
+from django.contrib.auth.decorators import login_required
 
 def question_list(request):
     page = request.GET.get('page', 1)
