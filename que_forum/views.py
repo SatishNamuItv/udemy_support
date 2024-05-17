@@ -5,6 +5,8 @@ from django.conf import settings
 from .forms import AnswerForm
 from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def question_list(request):
     page = request.GET.get('page', 1)
     response = requests.get(f'https://www.udemy.com/instructor-api/v1/courses/x01bHq3lE73GqxZLN3yPtBHeA==/questions/', headers={'Authorization': f'Bearer {settings.UD_API_KEY}'})
