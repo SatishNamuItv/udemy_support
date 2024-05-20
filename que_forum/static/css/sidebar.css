@@ -18,7 +18,7 @@
 .sidebar li {
     font-size: 16px;
     margin-bottom: 10px;
-    position: relative; /* Needed for dropdown positioning */
+    position: relative; /* Needed for dropdown position2ing */
 }
 
 .sidebar a {
