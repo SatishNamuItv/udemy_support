@@ -14,15 +14,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# urls.py
+
 from django.contrib import admin
-from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path
+from django.contrib.auth import views as auth_views
 from que_forum import views
-from authentication import views as user_views
+from authentication import views as login_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', user_views.login, name='login'),
-    path('home/', include('que_forum.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', login_views.login, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('home', views.home, name='home'),
+    path('manage_mentors/', views.manage_mentors, name='manage_mentors'),
+    path('manage_courses/', views.manage_courses, name='manage_courses'),
+    path('create_mentor/', views.create_mentor, name = 'create_mentor')
+    # Additional paths for creating, updating, and deleting mentors and courses
+]

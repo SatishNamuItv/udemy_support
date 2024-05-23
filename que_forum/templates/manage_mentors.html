@@ -1,0 +1,23 @@
+<!-- manage_mentors.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Mentors</h2>
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  {% for mentor in mentors %}
+  <tr>
+    <td>{{ mentor.username }}</td>
+    <td>{{ mentor.email }}</td>
+    <td>
+      <!-- Add actions like edit and delete -->
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'create_mentor' %}">Add Mentor</a>
+{% endblock %}

@@ -1,38 +1,44 @@
 # views.py
-import requests
-from django.shortcuts import render, redirect
-from django.conf import settings
-from .forms import AnswerForm
-from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from .models import Course  # Assuming you have a Course model
+from django.contrib.auth.models import User, Group
+
+def is_admin(user):
+    return user.is_superuser or user.groups.filter(name='Admins').exists()
 
 @login_required
-def question_list(request):
-    page = request.GET.get('page', 1)
-    response = requests.get(f'https://www.udemy.com/instructor-api/v1/courses/x01bHq3lE73GqxZLN3yPtBHeA==/questions/', headers={'Authorization': f'Bearer {settings.UD_API_KEY}'})
-    data = response.json() if response.status_code == 200 else {'results': [], 'next': None, 'previous': None}
-    return render(request, 'qa.html', {
-        'questions': data['results'],
-        'next': data['next'],
-        'previous': data['previous']
-    })
+def home(request):
+    return render(request, 'home.html')
 
-def question_detail(request, pk):
-    response = requests.get(f'https://api.udemy.com/endpoint-for-questions/{pk}', headers={'Authorization': f'Bearer {settings.UD_API_KEY}'})
-    question = response.json() if response.status_code == 200 else None
+@login_required
+@user_passes_test(is_admin)
+def manage_mentors(request):
+    mentors = User.objects.filter(groups__name='Mentors')
+    return render(request, 'manage_mentors.html', {'mentors': mentors})
 
+@login_required
+@user_passes_test(is_admin)
+def manage_courses(request):
+    courses = Course.objects.all()
+    return render(request, 'manage_courses.html', {'courses': courses})
+
+# Additional views for creating, updating, and deleting mentors and courses can be added similarly
+from .forms import MentorForm
+
+@login_required
+@user_passes_test(is_admin)
+def create_mentor(request):
     if request.method == 'POST':
-        form = AnswerForm(request.POST)
-        if form.is_valid() and question:
-            answer_data = {
-                "detail": form.cleaned_data['detail'],
-                "question": pk,
-                "posted_by": request.user.id  # Modify as necessary
-            }
-            post_response = requests.post('https://api.udemy.com/endpoint-for-answers', json=answer_data, headers={'Authorization': f'Bearer {settings.UD_API_KEY}'})
-            if post_response.status_code == 201:
-                return redirect('question_detail', pk=pk)
+        form = MentorForm(request.POST)
+        if form.is_valid():
+            mentor = form.save(commit=False)
+            mentor.set_password(form.cleaned_data['password'])  # Hash the password
+            mentor.save()
+            mentor.groups.add(Group.objects.get(name='Mentors'))
+            return redirect('manage_mentors')
     else:
-        form = AnswerForm()
-
-    return render(request, 'qa/question_detail.html', {'question': question, 'form': form})
+        form = MentorForm()
+    return render(request, 'create_mentor.html', {'form': form})

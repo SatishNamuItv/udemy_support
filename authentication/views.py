@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 
+
 def login(request):
     if request.method == 'POST':
             form = AuthenticationForm(request, data=request.POST)
@@ -14,7 +15,7 @@ def login(request):
                 user = authenticate(username=username, password=password)
                 if user:
                     auth_login(request, user)
-                    return redirect('question_list')
+                    return redirect('home')
                 else:
                     messages.error(request, 'Invalid username or password')
             else:

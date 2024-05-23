@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.models import User
 
-class AnswerForm(forms.Form):
-    detail = forms.CharField(widget=forms.Textarea)
+class MentorForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']

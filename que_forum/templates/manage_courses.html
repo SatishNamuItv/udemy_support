@@ -1,0 +1,24 @@
+<!-- manage_courses.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Courses</h2>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  {% for course in courses %}
+  <tr>
+    <td>{{ course.title }}</td>
+    <td>{{ course.description }}</td>
+    <td>
+      <!-- Add actions like edit and delete -->
+      <a href="{% url 'edit_course' course.id %}">Edit</a>
+      <a href="{% url 'delete_course' course.id %}">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
