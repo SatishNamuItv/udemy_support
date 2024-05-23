@@ -1,21 +1,9 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 import uuid
+from django.conf import settings
 
-class Profile(models.Model):
-    ROLE_CHOICES = [
-        ('admin', 'Admin'),
-        ('mentor', 'Mentor'),
-    ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=6, choices=ROLE_CHOICES)
-
-    def __str__(self):
-        return self.user.username
 
 class Course(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -23,10 +11,13 @@ class Course(models.Model):
     url = models.URLField()
     is_paid = models.BooleanField(default=True)
     published_title = models.CharField(max_length=255)
-    visible_instructors = models.ManyToManyField(Profile)
+    visible_instructors = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        db_table = 'courses'
 
 class Question(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -46,15 +37,22 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        db_table = 'questions'
 
 class Answer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField()
     last_activity = models.DateTimeField()
     body = models.TextField()
     is_top_answer = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Answer to {self.question.title} by {self.user.user.username}"
+        return f"Answer to {self.question.title} by {self.user.username}"
+
+
+    class Meta:
+        db_table = 'answers'

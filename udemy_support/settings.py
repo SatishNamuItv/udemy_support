@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'authentication'
 ]
 
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -127,3 +129,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 UD_API_KEY = 'Y1hu9Z9lzvM3WZmjCdoo97huuIlnB4BL'
+
+LOGIN_REDIRECT_URL = '/home'

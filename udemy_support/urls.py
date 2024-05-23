@@ -17,18 +17,14 @@ Including another URLconf
 # urls.py
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from que_forum import views
 from authentication import views as login_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_views.login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('home', views.home, name='home'),
-    path('manage_mentors/', views.manage_mentors, name='manage_mentors'),
-    path('manage_courses/', views.manage_courses, name='manage_courses'),
-    path('create_mentor/', views.create_mentor, name = 'create_mentor')
+    path('home/', include('que_forum.urls'), name='home'),
     # Additional paths for creating, updating, and deleting mentors and courses
 ]
