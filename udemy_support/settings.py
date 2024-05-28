@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'authentication'
 ]
 
-
+AUTH_USER_MODEL = 'que_forum.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,58 +1,26 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-import uuid
-from django.conf import settings
+from django.db import models
 
+class CustomUser(AbstractUser):
+    ADMIN = 'admin'
+    MENTOR = 'mentor'
+    ROLE_CHOICES = (
+        (ADMIN, 'Admin'),
+        (MENTOR, 'Mentor'),
+    )
+    
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=MENTOR)
 
+    def __str__(self):
+        return self.username
 
+    
 class Course(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    udemy_course_id = models.CharField(max_length=100, unique=True)
     title = models.CharField(max_length=255)
-    url = models.URLField()
-    is_paid = models.BooleanField(default=True)
-    published_title = models.CharField(max_length=255)
-    visible_instructors = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
-    
-    class Meta:
-        db_table = 'courses'
-
-class Question(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    body = models.TextField()
-    created = models.DateTimeField()
-    num_replies = models.IntegerField()
-    num_follows = models.IntegerField()
-    num_reply_upvotes = models.IntegerField()
-    modified = models.DateTimeField()
-    last_activity = models.DateTimeField()
-    is_read = models.BooleanField(default=False)
-    is_featured = models.BooleanField(default=False)
-    is_instructor = models.BooleanField(default=False)
-    num_upvotes = models.IntegerField()
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        db_table = 'questions'
-
-class Answer(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created = models.DateTimeField()
-    last_activity = models.DateTimeField()
-    body = models.TextField()
-    is_top_answer = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"Answer to {self.question.title} by {self.user.username}"
-
-
-    class Meta:
-        db_table = 'answers'

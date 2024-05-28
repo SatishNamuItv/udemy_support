@@ -2,23 +2,36 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, Group, Permission
 from .forms import MentorForm
-from .models import Course
+from .models import Course, CustomUser
 
 @login_required
 def home(request):
     return render(request, 'home.html')
 
-@login_required
-@user_passes_test(lambda u: u.is_superuser, login_url='/login/')
-def manage_mentors(request):
-    mentors = User.objects.filter(groups__name='Mentors')
-    return render(request, 'manage_mentors.html', {'mentors': mentors})
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser, login_url='/login/')
 def manage_courses(request):
-    courses = Course.objects.all()
+    if request.user.role == CustomUser.ADMIN:
+        # If the user is an admin, show all courses
+        courses = Course.objects.all()
+    elif request.user.role == CustomUser.MENTOR:
+        # If the user is a mentor, show only courses assigned to them
+        courses = Course.objects.filter(mentor=request.user)
+    else:
+        # For any other type of user, handle accordingly
+        # For example, you can redirect them to a different page or show an error message
+        return render(request, 'error.html', {'message': 'You do not have permission to view this page.'})
+    
     return render(request, 'manage_courses.html', {'courses': courses})
+
+@login_required
+def manage_mentors(request):
+    if request.user.role == CustomUser.ADMIN:
+        # Logic to manage mentors/admins
+        # For example, you can list all users and provide options to set their roles
+        return render(request, 'manage_mentors.html', {})
+    else:
+        return render(request, 'error.html', {'message': 'You do not have permission to view this page.'})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser, login_url='/login/')
