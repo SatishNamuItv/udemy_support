@@ -1,7 +1,9 @@
 <!-- manage_courses.html -->
-
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/manage_courses.css' %}">
+
 <h2>Manage Courses</h2>
 <table>
   <tr>
@@ -14,9 +16,6 @@
     <td>{{ course.title }}</td>
     <td>{{ course.description }}</td>
     <td>
-      <!-- Add actions like edit and delete -->
-      <a href="{% url 'edit_course' course.id %}">Edit</a>
-      <a href="{% url 'delete_course' course.id %}">Delete</a>
     </td>
   </tr>
   {% endfor %}

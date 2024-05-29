@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up the full viewport height */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    background-size: cover;
+    background-position: center;
+}
+
+.welcome-container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background for better readability */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+

@@ -1,120 +1,79 @@
 /* create_mentor.css */
 
-/* Styles specific to Create Mentor page */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background-color: #00bfff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
 }
 
-.create-mentor-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.card {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
     text-align: center;
-    position: relative;
 }
 
-.avatar {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    background-color: #007bff;
-    border-radius: 50%;
+.container h2 {
+    margin-bottom: 20px;
+}
+
+.container form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    overflow: hidden;
 }
 
-.avatar img {
+.container form .form-field {
     width: 100%;
-    height: auto;
-}
-
-.card-body {
-    margin-top: 60px;
-}
-
-.form-group {
     margin-bottom: 15px;
-    text-align: left;
-    position: relative;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
+.container form .form-field input,
+.container form .form-field select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box;
-    padding-left: 40px; /* To make space for the icon */
-}
-
-.form-group i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-}
-
-.btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+.container form .form-field input:focus,
+.container form .form-field select:focus {
+    border-color: #00bfff;
+    outline: none;
 }
 
-/* Icons */
-.icon-user::before {
-    content: "\f007"; /* FontAwesome user icon */
+.container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00bfff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.icon-email::before {
-    content: "\f0e0"; /* FontAwesome envelope icon */
+.container form button:hover {
+    background-color: #0099cc;
 }
 
-.icon-lock::before {
-    content: "\f023"; /* FontAwesome lock icon */
+.container .forgot-password {
+    margin-top: 15px;
+    font-size: 14px;
 }
 
-.icon-role::before {
-    content: "\f2b9"; /* FontAwesome user-tag icon */
+.container .forgot-password a {
+    color: #00bfff;
+    text-decoration: none;
 }
 
-/* Optional: FontAwesome icons */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+.container .forgot-password a:hover {
+    text-decoration: underline;
+}

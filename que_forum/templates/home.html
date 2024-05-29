@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-
+{%load static%}
 {% block title %}Home{% endblock %}
-
 {% block content %}
-<h2>Welcome to the Udemy Support System</h2>
-<p>This is the home page for admins and mentors.</p>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="welcome-container">
+    <h2>Welcome to the Udemy Support System</h2>
+    <p>This is the home page for admins and mentors.</p>
+</div>
 {% endblock %}
