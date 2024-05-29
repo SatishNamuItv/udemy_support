@@ -10,8 +10,12 @@
 <body>
     <header>
         <nav class="navbar">
-            <span class="welcome-msg">Welcome, {{ user.username }}</span>
-            <a href="{% url 'logout' %}" class="logout">Logout</a>
+            <div class="navbar-left">
+                <span class="welcome-msg">Welcome, {{ user.username }}</span>
+            </div>
+            <div class="navbar-right">
+                <a href="{% url 'logout' %}" class="logout">Logout</a>
+            </div>
         </nav>
     </header>
 
