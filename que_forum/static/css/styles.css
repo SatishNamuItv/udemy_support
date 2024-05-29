@@ -29,7 +29,7 @@ header {
 }
 
 .navbar a {
-    color: #101010;
+    color: #221c1c;
     text-decoration: none;
     margin: 0 10px;
 }
@@ -59,8 +59,12 @@ aside {
 }
 
 .sidebar a {
-    color: #fff;
+    color: #f6f4f4;
     text-decoration: none;
+}
+
+.sidebar li::marker {
+    color: white;
 }
 
 .sidebar a:hover {
@@ -88,7 +92,7 @@ footer {
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(243, 3, 3, 0.1);
 }
 
 .login-container h2 {
