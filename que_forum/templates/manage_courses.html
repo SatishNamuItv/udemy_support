@@ -4,17 +4,44 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/manage_courses.css' %}">
 
 <h2>Manage Courses</h2>
+
+<form method="GET" action="">
+  <input type="text" name="q" placeholder="Search courses..." value="{{ request.GET.q }}">
+  <button type="submit">Search</button>
+</form>
+
 <table>
   <tr>
+    <th>S.No</th>
     <th>Title</th>
     <th>Description</th>
+    <th>Mentors</th>
     <th>Actions</th>
   </tr>
   {% for course in courses %}
   <tr>
+    <td>{{ forloop.counter }}</td>
     <td><a href="#">{{ course.title }}</a></td>
     <td>{{ course.description }}</td>
     <td>
+      {% for assignment in course.mentor_course_assignments.all %}
+        {{ assignment.mentor.username }}{% if not forloop.last %}, {% endif %}
+      {% empty %}
+        No mentors assigned
+      {% endfor %}
+    </td>
+    <td>
+      <form method="POST" action="{% url 'assign_mentor' course.id %}">
+        {% csrf_token %}
+        <select name="mentor_id">
+          <option value="">Select Mentor</option>
+          {% for mentor in mentors %}          
+          { mentor.username}
+          <option value="{{ mentor.id }}">{{ mentor.username }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">Assign</button>
+      </form>
     </td>
   </tr>
   {% endfor %}

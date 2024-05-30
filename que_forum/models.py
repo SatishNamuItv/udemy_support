@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=MENTOR)
 
     class Meta:
-        db_table = 'users'
+        db_table = 'customusers'
 
     def __str__(self):
         return self.username
@@ -31,3 +31,15 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class MentorCourseAssignment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='mentor_course_assignments')
+    mentor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='mentor_course_assignments', limit_choices_to={'role': CustomUser.MENTOR})
+    assigned_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'mentor_course_assignments'
+    
+    def __str__(self):
+        return f"{self.mentor.username} -> {self.course.title}"
