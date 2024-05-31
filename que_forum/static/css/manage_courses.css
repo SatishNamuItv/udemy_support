@@ -27,3 +27,36 @@ td a {
 td a:hover {
     text-decoration: underline;
 }
+
+/* Styles for the search bar */
+form input[type="text"] {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+form button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for the no courses message */
+.no-courses-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* Adjust the height as needed to center vertically */
+    font-weight: bold;
+    font-size: 24px; /* Adjust the font size as needed */
+    text-align: center;
+}
